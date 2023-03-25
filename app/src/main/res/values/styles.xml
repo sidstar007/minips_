@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="you_id">
+        <item name="android:textSize">
+            40sp
+        </item>
+        <item name="android:textColor">
+            #FFFFFF
+        </item>
+    </style>
+
+    <style name="student">
+        <item name="android:textSize">
+            22sp
+        </item>
+        <item name="android:textColor">
+            #43B7BE
+        </item>
+    </style>
+
+    <style name="professional">
+        <item name="android:textSize">
+            22sp
+        </item>
+        <item name="android:textColor">
+            #5784DC
+        </item>
+    </style>
+
+</resources>
