@@ -11,6 +11,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.bugeting.minips.R
+import java.lang.Integer.MAX_VALUE
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
@@ -51,54 +52,94 @@ class CreateTransaction : AppCompatActivity() {
             var transAmount: Int
             var transRemark: String = ""
             if (transAmountET.text.toString().isEmpty()) {
+                //Checking if user has not filled transaction amount
                 Toast.makeText(this,"Please Enter the Amount.",Toast.LENGTH_SHORT).show()
             }
             else {
+                //Checking if transaction value is 0
                 if (transAmountET.text.toString().toInt()==0) {
                     Toast.makeText(this,"Please Enter Valid Amount!",Toast.LENGTH_SHORT).show()
                 }
                 else {
                     val databaseHelper = DatabaseHelper((this))
 
-                    /*if (type==1 && transAmountET.text.toString().toInt()>databaseHelper.getCatBalance(catId)) {
+                    //Checking if transaction value is exceeding budget value.
+                    if (type==1 && transAmountET.text.toString().toInt()>databaseHelper.getCatBalance(catId)) {
                         val dialog = AlertDialog.Builder(this)
 
-                        dialog.setTitle("You are exceeding your budget balance!")
+                        dialog.setTitle("You are exceeding your allocated budget!")
                         dialog.setPositiveButton("Go Ahead") {_,_,->
-                            TODO("Create a method for creating transaction")
+                            transAmount = transAmountET.text.toString().toInt()
+                            if (transRemarkET.text.isEmpty()) {
+                                if (type==0) {
+                                    transRemark="Credited"
+                                }
+                                else if (type==1) {
+                                    transRemark="Debited"
+                                }
+                            }
+                            else {
+                                transRemark=transRemarkET.text.toString()
+                            }
+
+                            val time = LocalTime.now()
+                            val sTime=DateTimeFormatter.ofPattern("HH:mm", Locale.US).format(time)
+                            val date = LocalDate.now()
+                            val sDate=DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.UK).format(date)
+
+                            val status=databaseHelper.addTransaction(TransactionModel(0,catId,type,transRemark,transAmount,sDate,sTime))
+                            databaseHelper.updateCategoryTransaction(TransactionModel(0,catId,type,transRemark,transAmount,sDate,sTime))
+                            if (status>-1) {
+                                Toast.makeText(this,"Transaction Added Successfully!",Toast.LENGTH_SHORT).show()
+                                intentTransactionPage.putExtra("CAT_ID", catId)
+                                startActivity(intentTransactionPage)
+                                finish()
+                            }
+                            else {
+                                Toast.makeText(this,"Transaction Failed.",Toast.LENGTH_SHORT).show()
+                            }
                         }
-                    }*/
-                    transAmount = transAmountET.text.toString().toInt()
-                    if (transRemarkET.text.isEmpty()) {
-                        if (type==0) {
-                            transRemark="Credited"
+                        dialog.setNegativeButton("Cancel") {_,_->
+                            //Cancelling transaction when value exceeds budget
                         }
-                        else if (type==1) {
-                            transRemark="Debited"
-                        }
-                    }
-                    else {
-                        transRemark=transRemarkET.text.toString()
+                        dialog.show()
                     }
 
-                    val time = LocalTime.now()
-                    val sTime=DateTimeFormatter.ofPattern("HH:mm", Locale.US).format(time)
-                    val date = LocalDate.now()
-                    val sDate=DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.UK).format(date)
-
-                    val status=databaseHelper.addTransaction(TransactionModel(0,catId,type,transRemark,transAmount,sDate,sTime))
-                    databaseHelper.updateCategoryTransaction(TransactionModel(0,catId,type,transRemark,transAmount,sDate,sTime))
-                    if (status>-1) {
-                        Toast.makeText(this,"Transaction Added Successfully!",Toast.LENGTH_SHORT).show()
-                        intentTransactionPage.putExtra("CAT_ID", catId)
-                        startActivity(intentTransactionPage)
-                        finish()
-                    }
+                    //Transaction value not exceeding budget value
                     else {
-                        Toast.makeText(this,"Transaction Failed.",Toast.LENGTH_SHORT).show()
+                        transAmount = transAmountET.text.toString().toInt()
+                        if (transRemarkET.text.isEmpty()) {
+                            if (type==0) {
+                                transRemark="Credited"
+                            }
+                            else if (type==1) {
+                                transRemark="Debited"
+                            }
+                        }
+                        else {
+                            transRemark=transRemarkET.text.toString()
+                        }
+
+                        val time = LocalTime.now()
+                        val sTime=DateTimeFormatter.ofPattern("HH:mm", Locale.US).format(time)
+                        val date = LocalDate.now()
+                        val sDate=DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.UK).format(date)
+
+                        val status=databaseHelper.addTransaction(TransactionModel(0,catId,type,transRemark,transAmount,sDate,sTime))
+                        databaseHelper.updateCategoryTransaction(TransactionModel(0,catId,type,transRemark,transAmount,sDate,sTime))
+                        if (status>-1) {
+                            Toast.makeText(this,"Transaction Added Successfully!",Toast.LENGTH_SHORT).show()
+                            intentTransactionPage.putExtra("CAT_ID", catId)
+                            startActivity(intentTransactionPage)
+                            finish()
+                        }
+                        else {
+                            Toast.makeText(this,"Transaction Failed.",Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
             }
         }
     }
+
 }

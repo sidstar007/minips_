@@ -79,8 +79,8 @@ class CategoryAdapter(private val context: Context,categoryModelArrayList: Array
                 checkAgain.setTitle("Warning: Deletion CANNOT be undone.")
                 checkAgain.setPositiveButton("Go Ahead") {_,_,->
                     //Deleting category
+                    holder.databaseHelper.deleteAllTransactionOfCategory(model)
                     holder.databaseHelper.deleteCategory(model)
-
                     val intentMainPage = Intent(holder.itemViewContext,MainPage::class.java)
 
                     Toast.makeText(holder.itemViewContext,"Budget Deleted Successfully.",Toast.LENGTH_LONG).show()

@@ -15,7 +15,7 @@ import kotlin.collections.ArrayList
 
 class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
     companion object {
-        private val DATABASE_VERSION=11
+        private val DATABASE_VERSION=12
         private val DATABASE_NAME="budget"
 
         //Category Table
@@ -275,6 +275,14 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
         val query="UPDATE $TABLE_CAT SET $CAT_BAL=$CAT_BAL+$transAmount WHERE $CAT_ID = ${trans.getTransCatId()}"
         db?.execSQL(query)
+    }
+
+    fun deleteAllTransactionOfCategory(cat: CategoryModel) {
+        val db=this.writableDatabase
+
+        val query="DELETE FROM $TABLE_TRANS WHERE $CAT_ID=${cat.id}"
+        db.execSQL(query)
+        db.close()
     }
 
 }
