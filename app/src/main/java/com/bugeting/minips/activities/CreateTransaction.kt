@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Window
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -28,9 +29,11 @@ class CreateTransaction : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_transaction)
-
+        supportActionBar?.title = "Create Transaction"
+        this.setFinishOnTouchOutside(false)
         val catId = intent.getIntExtra(CAT_ID,0)
         val type = intent.getIntExtra(TYPE,0)
 

@@ -18,4 +18,6 @@
     <color name="red">#FF0800</color>
     <color name="grey">#808080</color>
     <color name="lightRed">#FF7F7F</color>
+    <color name="catCard1">#191970</color>
+    <color name="catCard2">#32127A</color>
 </resources>
