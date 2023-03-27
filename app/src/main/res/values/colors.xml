@@ -7,17 +7,17 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="cardBG">#1F305E</color>
+    <color name="cardBG">#00B4D8</color>
     <color name="balanceBG">#E8EB64</color>
     <color name="addBtnBG">#00B9E8</color>
     <color name="mainExpenseCardBG">#7A11E3</color>
     <color name="mainIncomeCardBG">#FF8736</color>
     <color name="green">#00FF00</color>
-    <color name="mainPageBG">#F0F8FF</color>
     <color name="transparent">#00000000</color>
     <color name="red">#FF0800</color>
     <color name="grey">#808080</color>
     <color name="lightRed">#FF7F7F</color>
     <color name="catCard1">#191970</color>
     <color name="catCard2">#32127A</color>
+    <color name="mainPageBG">#03045E</color>
 </resources>

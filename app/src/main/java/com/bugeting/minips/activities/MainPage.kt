@@ -1,16 +1,22 @@
 package com.bugeting.minips.activities
 
-/*COPYRIGHT Siddhant Sudesh Chalke
-            21BCS118
-            IIIT Dharwad
+/* Developed by: Siddhant Chalke
+                 21BCS118
+                 IIIT Dharwad
+
+   UI/UX by:     Venkatesh Jaiswal
+                 21BCS131
+                 IIIT Dharwad
  */
 
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.WindowManager
 import android.widget.TextView
 import android.widget.Toast
 import com.bugeting.minips.R
@@ -29,9 +35,17 @@ class MainPage : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_page)
 
+        //Changing color of status bar
+        if (Build.VERSION.SDK_INT >= 21) {
+            val window = this.window
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            window.statusBarColor = this.resources.getColor(R.color.black)
+        }
+
         //Database Helper
         val databaseHelper: DatabaseHelper = DatabaseHelper((this))
 
+        //Getting all the buttons and text views
         val addBudgetBtn = findViewById<FloatingActionButton>(R.id.addBudgetBtn)
         val categoryRV = findViewById<RecyclerView>(R.id.RVCategory)
         val balanceCardNum = findViewById<TextView>(R.id.cardMainBalanceNumTV)

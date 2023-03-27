@@ -32,7 +32,7 @@
                     android:layout_marginStart="10dp"
                     android:text="Balance"
                     android:textColor="@color/black"
-                    android:textSize="30sp"
+                    android:textSize="25sp"
                     android:textStyle="bold"
                     android:fontFamily="@font/inter_medium"/>
 
@@ -72,9 +72,11 @@
             app:cardPreventCornerOverlap="true">
 
             <LinearLayout
+                android:id="@+id/cardMainExpenseLL"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:clickable="true"
                 android:background="@drawable/expense_card_gradient">
 
                 <TextView
@@ -86,7 +88,7 @@
                     android:fontFamily="@font/inter_medium"
                     android:text="Expenses"
                     android:textColor="@color/black"
-                    android:textSize="30sp"
+                    android:textSize="25sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -131,7 +133,7 @@
                     android:fontFamily="@font/inter_medium"
                     android:text="Income"
                     android:textColor="@color/black"
-                    android:textSize="30sp"
+                    android:textSize="25sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -157,6 +159,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:background="@android:color/darker_gray"/>
+
     <!--Relative Layout for Recycler View-->
     <RelativeLayout
         android:id="@+id/RVRelative"

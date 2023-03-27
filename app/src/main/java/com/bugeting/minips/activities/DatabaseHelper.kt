@@ -120,6 +120,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         return success
     }
 
+    //Function to view category name
     fun viewCategoryName(catId: Int): String {
         val db = this.writableDatabase
         val selectQuery = "SELECT $CAT_NAME FROM $TABLE_CAT WHERE $CAT_ID=$catId"
@@ -166,7 +167,6 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         return balance
     }
 
-
     //Function to add transaction to transaction table
     fun addTransaction(trans: TransactionModel): Long {
         val db = this.writableDatabase
@@ -184,6 +184,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         return success
     }
 
+    //Function to get all the debited values
     fun getDebit(): Long {
         val db=this.writableDatabase
         var cursor: Cursor? = null
@@ -197,6 +198,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         return sum
     }
 
+    //Function to get all the credited values
     fun getCredit(): Long {
         val db=this.writableDatabase
         var cursor: Cursor? = null
@@ -210,6 +212,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         return sum
     }
 
+    //Function to delete transaction based on category id
     fun deleteTransaction(trans: TransactionModel): Int {
         val db = this.writableDatabase
         trans.transAmount*=-1
@@ -224,6 +227,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
     }
 
     @SuppressLint("Range")
+    //Function to view all the transaction (stored in ArrayList)
     fun viewTransaction(catId: Int): ArrayList<TransactionModel> {
         val arrayListTransactionModel: ArrayList<TransactionModel> = ArrayList()
 
@@ -265,6 +269,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         return arrayListTransactionModel
     }
 
+    //Updating category table after deleting a specific transaction (update the balance)
     fun updateCategoryTransaction(trans: TransactionModel) {
         val db = this.writableDatabase
 
@@ -277,6 +282,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         db?.execSQL(query)
     }
 
+    //Deleting all the transactions of a particular category
     fun deleteAllTransactionOfCategory(cat: CategoryModel) {
         val db=this.writableDatabase
 

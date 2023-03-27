@@ -15,16 +15,20 @@ class CreateBudgetActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_budget)
 
+        //Hiding the action bar
         if (supportActionBar != null) {
             supportActionBar!!.hide()
         }
 
+        //Getting all the buttons and text input fields
         val saveBudgetBtn: Button = findViewById(R.id.save_budgetBtn);
         val budgetNameET: EditText = findViewById(R.id.category_name_ET)
         val budgetAmountET: EditText = findViewById(R.id.category_amount_ET)
 
+        //Main Page intent
         val intentMainPage = Intent(this, MainPage::class.java)
 
+        //Saving a budget category
         saveBudgetBtn.setOnClickListener {
             if (budgetNameET.text.isEmpty() || budgetAmountET.text.isEmpty()) {
                 Toast.makeText(this,"Please Enter All The Details.",Toast.LENGTH_SHORT).show()

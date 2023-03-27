@@ -34,16 +34,21 @@ class CreateTransaction : AppCompatActivity() {
         setContentView(R.layout.activity_create_transaction)
         supportActionBar?.title = "Create Transaction"
         this.setFinishOnTouchOutside(false)
+
+        //Getting thr category id and type of transaction
         val catId = intent.getIntExtra(CAT_ID,0)
         val type = intent.getIntExtra(TYPE,0)
 
+        //Transaction Page intent
         val intentTransactionPage = Intent(this,TransactionPage::class.java)
 
+        //Getting all the buttons, text views and text input fields
         val transTypeTV = findViewById<TextView>(R.id.transactionTypeTV)
         val saveTransactionBtn = findViewById<Button>(R.id.saveTransactionBtn)
         val transAmountET = findViewById<EditText>(R.id.transactionAmountET)
         val transRemarkET = findViewById<EditText>(R.id.transactionNoteET)
 
+        //Setting transaction title based on type (0-> Credit, 1->Debit)
         if (type==0) {
             transTypeTV.text="Credit Amount"
         }
@@ -51,6 +56,7 @@ class CreateTransaction : AppCompatActivity() {
             transTypeTV.text="Debit Amount"
         }
 
+        //Saving a transction
         saveTransactionBtn.setOnClickListener {
             var transAmount: Int
             var transRemark: String = ""
@@ -144,5 +150,4 @@ class CreateTransaction : AppCompatActivity() {
             }
         }
     }
-
 }

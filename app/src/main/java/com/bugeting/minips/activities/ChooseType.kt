@@ -6,6 +6,8 @@ import android.widget.Button
 import android.widget.Toast
 import com.bugeting.minips.R
 
+//Feature for future implementation
+
 class ChooseType : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

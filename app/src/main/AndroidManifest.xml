@@ -14,28 +14,29 @@
         android:theme="@style/Theme.Minips"
         tools:targetApi="31">
         <activity
-            android:name=".activities.CreateTransaction"
-            android:theme="@style/Theme.AppCompat.Dialog"
-            android:excludeFromRecents="true"
+            android:name=".ExpensePieChart"
             android:exported="false" />
+        <activity
+            android:name=".activities.CreateTransaction"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Dialog" />
         <activity
             android:name=".activities.TransactionPage"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"
-            android:exported="false" />
-        <!-- Launch Activity 'Main Page' -->
+            android:exported="false"
+            android:screenOrientation="portrait" /> <!-- Launch Activity 'Main Page' -->
         <activity
             android:name=".activities.MainPage"
             android:configChanges="orientation"
             android:exported="true"
             android:screenOrientation="portrait">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
-
         <activity
             android:name=".activities.CreateBudgetActivity"
             android:configChanges="orientation"
@@ -61,9 +62,7 @@
             android:configChanges="orientation"
             android:exported="true"
             android:screenOrientation="portrait">
-
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
 
         <meta-data
             android:name="preloaded_fonts"

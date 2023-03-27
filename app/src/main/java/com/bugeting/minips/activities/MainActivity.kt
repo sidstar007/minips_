@@ -7,6 +7,8 @@ import android.widget.Button
 import android.widget.Toast
 import com.bugeting.minips.R
 
+//This is a temporary page for testing the app
+
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

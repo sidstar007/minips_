@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="300dp"
     android:layout_height="match_parent"
-    android:background="@color/cardBG"
+    android:background="#003262"
     tools:context=".activities.CreateTransaction"
     android:layout_gravity="center"
     android:orientation="vertical"
@@ -64,7 +64,7 @@
             android:id="@+id/saveTransactionBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/addBtnBG"
+            android:background="@drawable/button_style"
             android:text="Save Transaction"
             android:layout_margin="20dp"/>
 
