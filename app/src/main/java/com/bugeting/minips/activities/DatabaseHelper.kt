@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteException
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
+import com.github.mikephil.charting.data.PieEntry
 import kotlinx.coroutines.currentCoroutineContext
 import java.sql.Date
 import java.sql.Time
@@ -289,6 +290,51 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         val query="DELETE FROM $TABLE_TRANS WHERE $CAT_ID=${cat.id}"
         db.execSQL(query)
         db.close()
+    }
+
+    //Function to get debited amount of a particular category
+    fun getCatDebit(cat: CategoryModel): Int {
+        val db=this.writableDatabase
+        var cursor: Cursor? = null
+        val query = "SELECT SUM($TRANS_AMOUNT) FROM $TABLE_TRANS WHERE $CAT_ID=${cat.id}"
+        var catDebit = 0
+        try {
+            cursor = db.rawQuery(query, null)
+            if (cursor.moveToFirst()) {
+                catDebit = cursor.getInt(0)
+            }
+        }
+        catch (e: SQLiteException) {
+            return catDebit
+        }
+        db.close()
+        return catDebit
+    }
+
+    //Function to get category name and total debit
+    @SuppressLint("Range")
+    fun getDebitAndName(): ArrayList<PieEntry> {
+        val pieList: ArrayList<PieEntry> = ArrayList<PieEntry>()
+
+        val query = "SELECT SUM(y.$TRANS_AMOUNT) AS TRANS_AMOUNT, x.$CAT_NAME FROM $TABLE_CAT AS x INNER JOIN $TABLE_TRANS AS y ON x.$CAT_ID=y.$CAT_ID WHERE y.$TRANS_TYPE=1 GROUP BY x.$CAT_ID"
+        var cursor: Cursor? = null
+        val db = this.writableDatabase
+
+        try {
+            cursor = db.rawQuery(query,null)
+            if (cursor.moveToFirst()) {
+                do {
+                    pieList.add(PieEntry(cursor.getFloat(cursor.getColumnIndex("TRANS_AMOUNT")), cursor.getString(cursor.getColumnIndex(
+                        CAT_NAME))))
+                } while (cursor.moveToNext())
+            }
+        }
+        catch (e: SQLiteException) {
+            db.close()
+            return pieList
+        }
+        db.close()
+        return pieList
     }
 
 }

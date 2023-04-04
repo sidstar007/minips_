@@ -14,7 +14,7 @@
         android:theme="@style/Theme.Minips"
         tools:targetApi="31">
         <activity
-            android:name=".ExpensePieChart"
+            android:name=".activities.ExpensePieChart"
             android:exported="false" />
         <activity
             android:name=".activities.CreateTransaction"

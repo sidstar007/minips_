@@ -17,6 +17,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowManager
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import com.bugeting.minips.R
@@ -43,7 +44,7 @@ class MainPage : AppCompatActivity() {
         }
 
         //Database Helper
-        val databaseHelper: DatabaseHelper = DatabaseHelper((this))
+        val databaseHelper = DatabaseHelper((this))
 
         //Getting all the buttons and text views
         val addBudgetBtn = findViewById<FloatingActionButton>(R.id.addBudgetBtn)
@@ -51,8 +52,14 @@ class MainPage : AppCompatActivity() {
         val balanceCardNum = findViewById<TextView>(R.id.cardMainBalanceNumTV)
         val expenseCardNum = findViewById<TextView>(R.id.cardMainExpenseNumTV)
         val incomeCardNum = findViewById<TextView>(R.id.cardMainIncomeNumTV)
-        var categoryModelArrayList: ArrayList<CategoryModel> = ArrayList<CategoryModel>()
+        val expenseCardLL = findViewById<LinearLayout>(R.id.cardMainExpenseLL)
+
+        //Intents
         val intentAddBudget = Intent(this, CreateBudgetActivity::class.java)
+        val intentExpensePieChart = Intent(this,ExpensePieChart::class.java)
+
+        //category model array list to store all the category models
+        var categoryModelArrayList: ArrayList<CategoryModel> = ArrayList<CategoryModel>()
 
         //Floating Action Button to go to Add Budget Page
         addBudgetBtn.setOnClickListener {
@@ -84,6 +91,11 @@ class MainPage : AppCompatActivity() {
             balanceCardNum.text = "\u20B9" + databaseHelper.getSumBalance().toString()
         }
 
+        //Expense Pie Chart Activity
+        expenseCardLL.setOnClickListener {
+            Toast.makeText(this,"Expense card clicked!",Toast.LENGTH_SHORT).show()
+            startActivity(intentExpensePieChart)
+        }
     }
     /*override fun onBackPressed() {
         if (backPressedTime + 3000 > System.currentTimeMillis()) {

@@ -9,10 +9,7 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bugeting.minips.R
@@ -36,6 +33,7 @@ class CategoryAdapter(private val context: Context,categoryModelArrayList: Array
         else {
             holder.cardbalance.text = "\u20B9" + model.getBalance().toString()
         }
+
 
         //Deleting or Renaming category
         holder.catEditBtn.setOnClickListener {
