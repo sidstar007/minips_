@@ -30,6 +30,7 @@ class TransactionAdapter(private val context: Context, transactionModelArrayList
         holder.transRemark.text=model.getTransNote()
 
         //type->0 --> Credit
+        //'\u20B9' --> Rupee Symbol
         if (model.getTransType()==0) {
             holder.transAmount.text ="+" + "\u20B9" + model.getTransAmount().toString()
             holder.transAmount.setTextColor(Color.parseColor("#00FF00"))

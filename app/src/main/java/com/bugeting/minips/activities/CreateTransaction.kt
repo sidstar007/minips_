@@ -22,6 +22,7 @@ import kotlin.random.Random
 
 class CreateTransaction : AppCompatActivity() {
 
+    //getting the category id and type of transaction
     companion object {
         const val CAT_ID= "CAT_ID"
         const val TYPE = "TYPE"
@@ -32,6 +33,11 @@ class CreateTransaction : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_transaction)
+
+        if (supportActionBar != null) {
+            supportActionBar!!.hide()
+        }
+
         supportActionBar?.title = "Create Transaction"
         this.setFinishOnTouchOutside(false)
 

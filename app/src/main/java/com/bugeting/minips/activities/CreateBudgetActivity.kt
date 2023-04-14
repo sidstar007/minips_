@@ -1,8 +1,11 @@
 package com.bugeting.minips.activities
 
 import android.content.Intent
+import android.graphics.Color
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -18,6 +21,13 @@ class CreateBudgetActivity : AppCompatActivity() {
         //Hiding the action bar
         if (supportActionBar != null) {
             supportActionBar!!.hide()
+        }
+
+        //Changing color of status bar
+        if (Build.VERSION.SDK_INT >= 21) {
+            val window = this.window
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            window.statusBarColor = Color.parseColor("#0012FF")
         }
 
         //Getting all the buttons and text input fields

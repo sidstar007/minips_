@@ -63,7 +63,7 @@ class MainPage : AppCompatActivity() {
 
         //Floating Action Button to go to Add Budget Page
         addBudgetBtn.setOnClickListener {
-            Toast.makeText(this,"add budget",Toast.LENGTH_SHORT).show()
+            /*Toast.makeText(this,"add budget",Toast.LENGTH_SHORT).show()*/
             startActivity(intentAddBudget)
         }
 
@@ -97,20 +97,20 @@ class MainPage : AppCompatActivity() {
             startActivity(intentExpensePieChart)
         }
     }
-    /*override fun onBackPressed() {
+
+    //Exiting on back pressed
+    override fun onBackPressed() {
         if (backPressedTime + 3000 > System.currentTimeMillis()) {
             super.onBackPressed()
             finish()
             exitProcess(0)
         } else {
-            Toast.makeText(this, "Press back again to leave the app.", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Press back again to exit Minips", Toast.LENGTH_LONG).show()
         }
         backPressedTime = System.currentTimeMillis()
-    }*/
+    }
 }
 
 /* To do:
     Fix Income logic
-    Main Page negative budget balance --Fixed
-    Delete transaction --Fixed
  */

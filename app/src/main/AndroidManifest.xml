@@ -13,30 +13,41 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Minips"
         tools:targetApi="31">
+
+        <activity
+            android:name=".activities.SplashActivity"
+            android:exported="true"
+            android:screenOrientation="portrait">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+
         <activity
             android:name=".activities.ExpensePieChart"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.CreateTransaction"
             android:excludeFromRecents="true"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Dialog" />
         <activity
             android:name=".activities.TransactionPage"
             android:configChanges="orientation"
             android:exported="false"
-            android:screenOrientation="portrait" /> <!-- Launch Activity 'Main Page' -->
+            android:screenOrientation="portrait" />
+
+        <!-- Launch Activity 'Main Page' -->
         <activity
             android:name=".activities.MainPage"
             android:configChanges="orientation"
             android:exported="true"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:screenOrientation="portrait"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".activities.CreateBudgetActivity"
             android:configChanges="orientation"

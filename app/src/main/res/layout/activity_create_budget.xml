@@ -5,23 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.CreateBudgetActivity"
-    android:background="@color/black"
+    android:background="@drawable/create_budget_background"
     >
 
     <TextView
         android:id="@+id/create_budget_head"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:gravity="center"
+        android:fontFamily="@font/inter_medium"
         android:text="Create Budget"
         android:textColor="@color/white"
         android:textSize="50sp"
-        android:fontFamily="@font/inter_medium"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/budget_amount_layout"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.305"
-        tools:layout_editor_absoluteX="0dp" />
+        tools:layout_editor_absoluteX="42dp" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/budget_name_layout"

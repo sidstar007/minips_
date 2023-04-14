@@ -17,5 +17,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         >
 
+        <TextView
+            android:id="@+id/pieChartHeadTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter_medium"
+            android:text="Lets see where most of your money went,"
+            android:textColor="@color/white"
+            android:textSize="25dp"
+            android:textStyle="bold" />
+
     </com.github.mikephil.charting.charts.PieChart>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

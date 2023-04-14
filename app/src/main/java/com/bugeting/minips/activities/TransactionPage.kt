@@ -1,6 +1,7 @@
 package com.bugeting.minips.activities
 
 import android.content.Intent
+import android.graphics.Color.parseColor
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -25,7 +26,7 @@ class TransactionPage : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= 21) {
             val window = this.window
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            window.statusBarColor = this.resources.getColor(R.color.black)
+            window.statusBarColor = parseColor("#0441DC")
         }
 
         //Removing Action Bar

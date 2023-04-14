@@ -102,7 +102,6 @@ class CategoryAdapter(private val context: Context,categoryModelArrayList: Array
 
         //Accessing Transaction Page of a category
         holder.innerCardLL.setOnClickListener {
-            Toast.makeText(holder.itemViewContext,"card clicked",Toast.LENGTH_SHORT).show()
             val mp = MainPage()
             mp.finish()
             //Passing Category ID to transaction page and starting transaction page

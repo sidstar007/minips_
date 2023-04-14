@@ -1,10 +1,13 @@
 package com.bugeting.minips.activities
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.WindowManager
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.bugeting.minips.R
 import com.github.mikephil.charting.charts.PieChart
@@ -12,6 +15,7 @@ import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.utils.ColorTemplate
+import kotlin.system.exitProcess
 
 class ExpensePieChart : AppCompatActivity() {
     lateinit var pieChart: PieChart
@@ -55,5 +59,15 @@ class ExpensePieChart : AppCompatActivity() {
         pieChart.setCenterTextColor(resources.getColor(R.color.cardBG))
         pieChart.setCenterTextSize(30f)
         pieChart.animateY(2000)
+
+        //TODO("Change text size of pie chart values dynamically")
+
+    }
+
+    //Going to main page on back press
+    override fun onBackPressed() {
+        val intentMainPage = Intent(this,MainPage::class.java)
+        finish()
+        startActivity(intentMainPage)
     }
 }
