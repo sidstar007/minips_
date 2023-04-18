@@ -9,15 +9,16 @@ package com.bugeting.minips.activities
                  IIIT Dharwad
  */
 
-import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.WindowManager
 import android.widget.LinearLayout
+import android.widget.SearchView
 import android.widget.TextView
 import android.widget.Toast
 import com.bugeting.minips.R
@@ -25,9 +26,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.lang.Math.abs
+import java.util.Locale.filter
 import kotlin.system.exitProcess
 
 class MainPage : AppCompatActivity() {
+
+    lateinit var categoryRV: RecyclerView
+    lateinit var categoryAdapter: CategoryAdapter
+    lateinit var categoryModelArrayList: ArrayList<CategoryModel>
 
     //Back Press Time
     var backPressedTime: Long = 0
@@ -46,9 +52,12 @@ class MainPage : AppCompatActivity() {
         //Database Helper
         val databaseHelper = DatabaseHelper((this))
 
+        //Changing activity title
+        val actionBar = supportActionBar
+        actionBar!!.title= databaseHelper.getUserName()
+
         //Getting all the buttons and text views
         val addBudgetBtn = findViewById<FloatingActionButton>(R.id.addBudgetBtn)
-        val categoryRV = findViewById<RecyclerView>(R.id.RVCategory)
         val balanceCardNum = findViewById<TextView>(R.id.cardMainBalanceNumTV)
         val expenseCardNum = findViewById<TextView>(R.id.cardMainExpenseNumTV)
         val incomeCardNum = findViewById<TextView>(R.id.cardMainIncomeNumTV)
@@ -58,8 +67,8 @@ class MainPage : AppCompatActivity() {
         val intentAddBudget = Intent(this, CreateBudgetActivity::class.java)
         val intentExpensePieChart = Intent(this,ExpensePieChart::class.java)
 
-        //category model array list to store all the category models
-        var categoryModelArrayList: ArrayList<CategoryModel> = ArrayList<CategoryModel>()
+        //Recycler view
+        categoryRV = findViewById(R.id.RVCategory)
 
         //Floating Action Button to go to Add Budget Page
         addBudgetBtn.setOnClickListener {
@@ -69,10 +78,11 @@ class MainPage : AppCompatActivity() {
 
         //Adapter and layout manager for the main page recycler view
         categoryModelArrayList = databaseHelper.viewCategory()
-        val categoryAdapter = CategoryAdapter(this, categoryModelArrayList)
+        categoryAdapter = CategoryAdapter(this, categoryModelArrayList)
         val linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         categoryRV.layoutManager = linearLayoutManager
         categoryRV.adapter = categoryAdapter
+        categoryAdapter.notifyDataSetChanged()
 
         //Setting up main page expense card
         val expense = databaseHelper.getDebit()
@@ -96,6 +106,7 @@ class MainPage : AppCompatActivity() {
             Toast.makeText(this,"Expense card clicked!",Toast.LENGTH_SHORT).show()
             startActivity(intentExpensePieChart)
         }
+
     }
 
     //Exiting on back pressed
@@ -109,8 +120,43 @@ class MainPage : AppCompatActivity() {
         }
         backPressedTime = System.currentTimeMillis()
     }
-}
 
-/* To do:
-    Fix Income logic
- */
+    //Implementing search for categories
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.search_menu, menu)
+        val searchItem: MenuItem = menu.findItem(R.id.actionSearch)
+        val searchView: SearchView = searchItem.actionView as SearchView
+        searchView.queryHint="Search Category"
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(p0: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(msg: String): Boolean {
+                filter(msg)
+                return false
+            }
+        })
+        return true
+    }
+
+    //Filter for searching categories
+    private fun filter(text: String) {
+        val filteredlist: ArrayList<CategoryModel> = ArrayList()
+
+        for (item in categoryModelArrayList) {
+
+            if (item.category_name.toLowerCase().contains(text.toLowerCase())) {
+                filteredlist.add(item)
+            }
+        }
+        if (filteredlist.isEmpty()) {
+            Toast.makeText(this, "No Category Found", Toast.LENGTH_SHORT).show()
+        } else {
+            categoryAdapter.filterList(filteredlist)
+        }
+    }
+
+
+}

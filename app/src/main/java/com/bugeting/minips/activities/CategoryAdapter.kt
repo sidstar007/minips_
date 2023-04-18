@@ -18,7 +18,7 @@ import java.lang.Math.abs
 
 class CategoryAdapter(private val context: Context,categoryModelArrayList: ArrayList<CategoryModel>) :
     RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
-    private val categoryModelArrayList: ArrayList<CategoryModel>
+    private var categoryModelArrayList: ArrayList<CategoryModel>
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view: View = LayoutInflater.from(parent.context).inflate(R.layout.card_layout, parent, false)
         return ViewHolder(view)
@@ -112,6 +112,13 @@ class CategoryAdapter(private val context: Context,categoryModelArrayList: Array
         if (model.getBalance()<0) {
             holder.cardbalance.setTextColor(Color.parseColor("#FF0800"))
         }
+
+    }
+
+    //Filter for search
+    fun filterList(filterlist: ArrayList<CategoryModel>) {
+        categoryModelArrayList = filterlist
+        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int {

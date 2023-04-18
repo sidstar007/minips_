@@ -7,7 +7,6 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.bugeting.minips.R
 import com.github.mikephil.charting.charts.PieChart
@@ -15,7 +14,6 @@ import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.utils.ColorTemplate
-import kotlin.system.exitProcess
 
 class ExpensePieChart : AppCompatActivity() {
     lateinit var pieChart: PieChart
@@ -23,6 +21,17 @@ class ExpensePieChart : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_expense_pie_chart)
+
+        //Removing Action Bar
+        if (supportActionBar != null) {
+            supportActionBar!!.hide()
+        }
+        //Changing color of status bar
+        if (Build.VERSION.SDK_INT >= 21) {
+            val window = this.window
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            window.statusBarColor = Color.parseColor("#337FF1")
+        }
 
         pieChart=findViewById(R.id.pie_chart)
 
@@ -38,10 +47,10 @@ class ExpensePieChart : AppCompatActivity() {
         //Setting pie chart value attributes
         pieDataSet.valueTextSize=15f
         pieDataSet.valueTypeface = Typeface.create(resources.getFont(R.font.inter_medium),Typeface.BOLD)
-        pieDataSet.valueTextColor=Color.BLACK
+        pieDataSet.valueTextColor=Color.WHITE
 
         //Setting pie chart entry attributes
-        pieChart.setEntryLabelColor(Color.BLACK)
+        pieChart.setEntryLabelColor(Color.WHITE)
         pieChart.setEntryLabelTextSize(15f)
         pieChart.setEntryLabelTypeface(Typeface.create(resources.getFont(R.font.inter_medium),Typeface.BOLD))
 
@@ -59,8 +68,7 @@ class ExpensePieChart : AppCompatActivity() {
         pieChart.setCenterTextColor(resources.getColor(R.color.cardBG))
         pieChart.setCenterTextSize(30f)
         pieChart.animateY(2000)
-
-        //TODO("Change text size of pie chart values dynamically")
+        pieChart.minAngleForSlices=25f
 
     }
 

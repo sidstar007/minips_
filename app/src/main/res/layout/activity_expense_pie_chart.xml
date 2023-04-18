@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
+    android:background="@drawable/expense_pie_background"
     tools:context=".activities.ExpensePieChart">
 
     <com.github.mikephil.charting.charts.PieChart
@@ -23,9 +23,10 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/inter_medium"
             android:text="Lets see where most of your money went,"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
+            android:textStyle="bold"
             android:textSize="25dp"
-            android:textStyle="bold" />
+             />
 
     </com.github.mikephil.charting.charts.PieChart>
 

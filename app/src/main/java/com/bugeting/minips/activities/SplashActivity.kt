@@ -5,12 +5,9 @@ import android.graphics.Color
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
 import android.view.WindowManager
 import com.bugeting.minips.R
 import java.util.*
-import java.util.concurrent.Executors
-import java.util.concurrent.TimeUnit
 
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,13 +24,29 @@ class SplashActivity : AppCompatActivity() {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
             window.statusBarColor = Color.parseColor("#000000")
         }
-        val intentMainPage = Intent(this,MainPage::class.java)
 
-        //Displaying splash screen for 2 seconds
-        Timer().schedule(object : TimerTask() {
-            override fun run() {
-                startActivity(intentMainPage)
-            }
-        }, 2000)
+        val databaseHelper = DatabaseHelper(this)
+
+        //Checking if user has already logged in
+        if (databaseHelper.userCount()==0) {
+            val intentSignUp = Intent(this,SignUpActivity::class.java)
+
+            //Displaying splash screen for 1.5 seconds
+            Timer().schedule(object : TimerTask() {
+                override fun run() {
+                    startActivity(intentSignUp)
+                }
+            }, 1500)
+        }
+        else {
+            val intentMainPage = Intent(this, MainPage::class.java)
+
+            //Displaying splash screen for 1.5 seconds
+            Timer().schedule(object : TimerTask() {
+                override fun run() {
+                    startActivity(intentMainPage)
+                }
+            }, 1500)
+        }
     }
 }

@@ -16,7 +16,7 @@ import kotlin.collections.ArrayList
 
 class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
     companion object {
-        private val DATABASE_VERSION=12
+        private val DATABASE_VERSION=14
         private val DATABASE_NAME="budget"
 
         //Category Table
@@ -33,7 +33,14 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         private val TRANS_DATE="trans_date"
         private val TRANS_TIME="trans_time"
         private val TRANS_TYPE="trans_type"
+
+        //User Table
+        private val TABLE_USER="userTable"
+        private val USER_NAME="user_name"
+        private val USER_EMAIL="user_email"
+        private val USER_PASS="user_pass"
     }
+
     override fun onCreate(db: SQLiteDatabase?) {
         //Creating category table
         val query1 = ("CREATE TABLE " + TABLE_CAT + " (" + CAT_ID + " INTEGER PRIMARY KEY, " + CAT_NAME + " TEXT, " + CAT_BAL + " INTEGER" + ")")
@@ -41,10 +48,15 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         //Creating transaction table
         val query2 = ("CREATE TABLE " + TABLE_TRANS + " (" + TRANS_ID + " INTEGER PRIMARY KEY, " + CAT_ID + " INTEGER, " + TRANS_TYPE + " INTEGER, " + TRANS_NOTE + " TEXT, " + TRANS_AMOUNT + " INTEGER, " + TRANS_DATE + " TEXT, " + TRANS_TIME + " TEXT, " + "FOREIGN KEY ($CAT_ID) REFERENCES $TABLE_CAT($CAT_ID) ON DELETE CASCADE ON UPDATE CASCADE" + ")")
         db?.execSQL(query2)
+        //Creating user table
+        val query3 = ("CREATE TABLE " + TABLE_USER + " (" + USER_NAME + " TEXT, " + USER_EMAIL + " TEXT, " + USER_PASS + " TEXT" + ")")
+        db?.execSQL(query3)
     }
+
     override fun onUpgrade(db: SQLiteDatabase, p1: Int, p2: Int) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_CAT)
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_TRANS)
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER)
         onCreate(db)
     }
 
@@ -58,6 +70,53 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         val success = db.insert(TABLE_CAT,null,contentValues)
         db.close()
         return success
+    }
+
+    //Function to add user
+    fun addUser(user: UserModel): Long {
+        val db = this.writableDatabase
+        val contentValues = ContentValues()
+        contentValues.put(USER_NAME,user.userName)
+        contentValues.put(USER_EMAIL,user.userEmail)
+        contentValues.put(USER_PASS,user.userPass)
+
+        val success = db.insert(TABLE_USER,null,contentValues)
+        db.close()
+        return success
+    }
+
+    //Function to get user count
+    fun userCount(): Int {
+        val db = this.writableDatabase
+        var cursor: Cursor
+        val query = "SELECT COUNT($USER_NAME) FROM $TABLE_USER"
+        cursor = db.rawQuery(query,null)
+
+        var count=0
+
+        if (cursor.moveToFirst()) {
+            count=cursor.getInt(0)
+        }
+
+        return count
+        db.close()
+        return count
+    }
+
+    //Function to get user name
+    fun getUserName(): String {
+        val db = this.writableDatabase
+        var cursor: Cursor
+        val query = "SELECT $USER_NAME FROM $TABLE_USER"
+        cursor = db.rawQuery(query,null)
+
+        var name = "Minips"
+
+        if (cursor.moveToFirst()) {
+            name=cursor.getString(0)
+        }
+
+        return name
     }
 
     @SuppressLint("Range")
