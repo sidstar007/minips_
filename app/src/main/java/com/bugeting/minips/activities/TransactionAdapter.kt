@@ -17,7 +17,7 @@ import com.bugeting.minips.R
 
 class TransactionAdapter(private val context: Context, transactionModelArrayList: ArrayList<TransactionModel>):
     RecyclerView.Adapter<TransactionAdapter.ViewHolder>() {
-    private val transactionModelArrayList: ArrayList<TransactionModel>
+    private var transactionModelArrayList: ArrayList<TransactionModel>
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransactionAdapter.ViewHolder {
         val view: View = LayoutInflater.from(parent.context).inflate(R.layout.card_transaction_layout, parent, false)
         return ViewHolder(view)
@@ -70,6 +70,11 @@ class TransactionAdapter(private val context: Context, transactionModelArrayList
             }
             dialog.show()
         }
+    }
+
+    fun filterList(filterlist: ArrayList<TransactionModel>) {
+        transactionModelArrayList = filterlist
+        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int {

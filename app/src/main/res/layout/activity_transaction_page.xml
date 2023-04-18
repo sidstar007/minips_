@@ -3,23 +3,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".activities.TransactionPage"
     android:orientation="vertical"
     android:background="@color/black">
 
-    <TextView
-        android:id="@+id/transCategoryNameTV"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="10dp"
-        android:text="Category Name"
-        android:background="@drawable/transaction_page_head"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        android:fontFamily="@font/inter_medium"
-        android:textColor="@color/white"
+        android:orientation="horizontal"
+        android:background="@drawable/transaction_page_head">
+        <TextView
+            android:id="@+id/transCategoryNameTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:text="Category Name"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/inter_medium"
+            android:textColor="@color/white"
         />
+
+        <Button
+            android:id="@+id/filterTransaction"
+            android:layout_width="24dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/ic_baseline_filter_alt_24"
+            app:backgroundTint="@color/white"
+            />
+
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/transactionRV"

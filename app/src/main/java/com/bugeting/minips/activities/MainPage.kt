@@ -11,8 +11,8 @@ package com.bugeting.minips.activities
 
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -21,13 +21,14 @@ import android.widget.LinearLayout
 import android.widget.SearchView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bugeting.minips.R
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.lang.Math.abs
-import java.util.Locale.filter
 import kotlin.system.exitProcess
+
 
 class MainPage : AppCompatActivity() {
 
@@ -46,7 +47,7 @@ class MainPage : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= 21) {
             val window = this.window
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            window.statusBarColor = this.resources.getColor(R.color.black)
+            window.statusBarColor = Color.parseColor("#000000")
         }
 
         //Database Helper
@@ -55,6 +56,9 @@ class MainPage : AppCompatActivity() {
         //Changing activity title
         val actionBar = supportActionBar
         actionBar!!.title= databaseHelper.getUserName()
+
+        val colorDrawable = ColorDrawable(Color.parseColor("#1B1B1B"))
+        actionBar.setBackgroundDrawable(colorDrawable)
 
         //Getting all the buttons and text views
         val addBudgetBtn = findViewById<FloatingActionButton>(R.id.addBudgetBtn)
@@ -157,6 +161,4 @@ class MainPage : AppCompatActivity() {
             categoryAdapter.filterList(filteredlist)
         }
     }
-
-
 }
