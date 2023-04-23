@@ -41,12 +41,12 @@ class SplashActivity : AppCompatActivity() {
         else {
             val intentMainPage = Intent(this, MainPage::class.java)
 
-            //Displaying splash screen for 1.5 seconds
+            //Displaying splash screen for 1.8 seconds
             Timer().schedule(object : TimerTask() {
                 override fun run() {
                     startActivity(intentMainPage)
                 }
-            }, 1500)
+            }, 1800)
         }
     }
 }

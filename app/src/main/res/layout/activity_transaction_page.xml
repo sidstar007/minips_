@@ -34,8 +34,31 @@
             android:background="@drawable/ic_baseline_filter_alt_24"
             app:backgroundTint="@color/white"
             />
+        <Button
+            android:id="@+id/addPlanPayment"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/ic_baseline_more_time_24"
+            app:backgroundTint="@color/white"/>
 
     </LinearLayout>
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/plannedPaymentsRV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+    <View
+        android:id="@+id/separatorLineTrans"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="#c0c0c0"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/transactionRV"

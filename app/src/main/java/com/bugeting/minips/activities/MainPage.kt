@@ -21,12 +21,18 @@ import android.widget.LinearLayout
 import android.widget.SearchView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bugeting.minips.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.lang.Math.abs
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.system.exitProcess
 
 
@@ -39,6 +45,7 @@ class MainPage : AppCompatActivity() {
     //Back Press Time
     var backPressedTime: Long = 0
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_page)
@@ -47,7 +54,7 @@ class MainPage : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= 21) {
             val window = this.window
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            window.statusBarColor = Color.parseColor("#000000")
+            window.statusBarColor = Color.parseColor("#19173D")
         }
 
         //Database Helper
@@ -57,7 +64,7 @@ class MainPage : AppCompatActivity() {
         val actionBar = supportActionBar
         actionBar!!.title= databaseHelper.getUserName()
 
-        val colorDrawable = ColorDrawable(Color.parseColor("#1B1B1B"))
+        val colorDrawable = ColorDrawable(Color.parseColor("#19173D"))
         actionBar.setBackgroundDrawable(colorDrawable)
 
         //Getting all the buttons and text views
@@ -78,6 +85,14 @@ class MainPage : AppCompatActivity() {
         addBudgetBtn.setOnClickListener {
             /*Toast.makeText(this,"add budget",Toast.LENGTH_SHORT).show()*/
             startActivity(intentAddBudget)
+        }
+
+        //Checking date of month for level up, **fix increment logic**
+        val date = LocalDate.now()
+        if (date.dayOfMonth==1) {
+            if ((databaseHelper.viewUserIncome()-databaseHelper.getDebit())>=databaseHelper.viewUserSaving()) {
+                databaseHelper.updateLevel()
+            }
         }
 
         //Adapter and layout manager for the main page recycler view
@@ -107,7 +122,7 @@ class MainPage : AppCompatActivity() {
 
         //Expense Pie Chart Activity
         expenseCardLL.setOnClickListener {
-            Toast.makeText(this,"Expense card clicked!",Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this,"Expense card clicked!",Toast.LENGTH_SHORT).show()
             startActivity(intentExpensePieChart)
         }
 
@@ -129,6 +144,7 @@ class MainPage : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater = menuInflater
         inflater.inflate(R.menu.search_menu, menu)
+        inflater.inflate(R.menu.view_profile, menu)
         val searchItem: MenuItem = menu.findItem(R.id.actionSearch)
         val searchView: SearchView = searchItem.actionView as SearchView
         searchView.queryHint="Search Category"
@@ -141,8 +157,18 @@ class MainPage : AppCompatActivity() {
                 filter(msg)
                 return false
             }
+
         })
+
         return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
+        R.id.action_profile -> {
+            startActivity(Intent(this,AccountInfo::class.java))
+            true
+        }
+        else -> super.onOptionsItemSelected(item)
     }
 
     //Filter for searching categories

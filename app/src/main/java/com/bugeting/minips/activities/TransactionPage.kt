@@ -13,6 +13,7 @@ import android.widget.DatePicker
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bugeting.minips.R
@@ -37,7 +38,7 @@ class TransactionPage : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= 21) {
             val window = this.window
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            window.statusBarColor = parseColor("#0441DC")
+            window.statusBarColor = parseColor("#19173D")
         }
 
         //Removing Action Bar
@@ -55,6 +56,9 @@ class TransactionPage : AppCompatActivity() {
         val cashOutBtn = findViewById<Button>(R.id.cashOutBtn)
         val categoryTitle = findViewById<TextView>(R.id.transCategoryNameTV)
         val filterTransaction = findViewById<Button>(R.id.filterTransaction)
+        val addPlanPayment = findViewById<Button>(R.id.addPlanPayment)
+        val ppRV = findViewById<RecyclerView>(R.id.plannedPaymentsRV)
+        val sepLine = findViewById<View>(R.id.separatorLineTrans)
         val cal = Calendar.getInstance()
 
         //Retrieving category name
@@ -62,6 +66,12 @@ class TransactionPage : AppCompatActivity() {
 
         //ArrayList to store all transaction models
         transactionModelArrayList = databaseHelper.viewTransaction(catId)
+        val planModelArrayList: ArrayList<TransactionModel> = databaseHelper.viewPlan(catId)
+
+        //Hiding separator line if plan array list is empty
+        if (planModelArrayList.size==0) {
+            sepLine.visibility = View.GONE
+        }
 
         //Setting up transaction recycler view
         transactionAdapter = TransactionAdapter(this, transactionModelArrayList)
@@ -69,6 +79,14 @@ class TransactionPage : AppCompatActivity() {
         transRV.layoutManager = linearLayoutManager
         transRV.adapter = transactionAdapter
         transactionAdapter.notifyDataSetChanged()
+
+        //Setting up planner recycler view
+        val planAdapter = PlanAdapter(this, planModelArrayList)
+        val linearLayoutManagerPP = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        ppRV.layoutManager = linearLayoutManagerPP
+        ppRV.adapter = planAdapter
+        planAdapter.notifyDataSetChanged()
+
 
         //Cash in button
         cashInBtn.setOnClickListener {
@@ -113,6 +131,13 @@ class TransactionPage : AppCompatActivity() {
                     cal.get(Calendar.DAY_OF_MONTH)).show()
             }
         })
+
+        //Add planned payment
+        addPlanPayment.setOnClickListener {
+            val intentCreatePlanPayment = Intent(this,CreatePlannedPayment::class.java)
+            intentCreatePlanPayment.putExtra("CAT_ID",catId)
+            startActivity(intentCreatePlanPayment)
+        }
     }
 
     private fun filter(text: String) {

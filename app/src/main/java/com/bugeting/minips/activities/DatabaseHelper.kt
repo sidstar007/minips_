@@ -16,7 +16,7 @@ import kotlin.collections.ArrayList
 
 class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
     companion object {
-        private val DATABASE_VERSION=14
+        private val DATABASE_VERSION=28
         private val DATABASE_NAME="budget"
 
         //Category Table
@@ -39,24 +39,34 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         private val USER_NAME="user_name"
         private val USER_EMAIL="user_email"
         private val USER_PASS="user_pass"
+        private val USER_INCOME="user_income"
+        private val USER_SAVING="user_saving"
+        private val USER_LEVEL="user_level"
+
+        //Planned Payments
+        private val TABLE_PLAN="planTable"
+        private val PLAN_ID="plan_id"
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
         //Creating category table
-        val query1 = ("CREATE TABLE " + TABLE_CAT + " (" + CAT_ID + " INTEGER PRIMARY KEY, " + CAT_NAME + " TEXT, " + CAT_BAL + " INTEGER" + ")")
+        val query1 = ("CREATE TABLE " + TABLE_CAT + " (" + CAT_ID + " INTEGER PRIMARY KEY, " + CAT_NAME + " TEXT, " + CAT_BAL + " INTEGER"  + ")")
         db?.execSQL(query1)
         //Creating transaction table
         val query2 = ("CREATE TABLE " + TABLE_TRANS + " (" + TRANS_ID + " INTEGER PRIMARY KEY, " + CAT_ID + " INTEGER, " + TRANS_TYPE + " INTEGER, " + TRANS_NOTE + " TEXT, " + TRANS_AMOUNT + " INTEGER, " + TRANS_DATE + " TEXT, " + TRANS_TIME + " TEXT, " + "FOREIGN KEY ($CAT_ID) REFERENCES $TABLE_CAT($CAT_ID) ON DELETE CASCADE ON UPDATE CASCADE" + ")")
         db?.execSQL(query2)
         //Creating user table
-        val query3 = ("CREATE TABLE " + TABLE_USER + " (" + USER_NAME + " TEXT, " + USER_EMAIL + " TEXT, " + USER_PASS + " TEXT" + ")")
+        val query3 = ("CREATE TABLE " + TABLE_USER + " (" + USER_NAME + " TEXT, " + USER_EMAIL + " TEXT, " + USER_PASS + " TEXT, " + USER_SAVING + " INTEGER, " + USER_INCOME + " INTEGER, " + USER_LEVEL + " INTEGER DEFAULT 0" + ")")
         db?.execSQL(query3)
+        val query4 = ("CREATE TABLE " + TABLE_PLAN + " (" + PLAN_ID + " INTEGER PRIMARY KEY, " + CAT_ID + " INTEGER, " + TRANS_TYPE + " INTEGER, " + TRANS_NOTE + " TEXT, " + TRANS_AMOUNT + " INTEGER, " + TRANS_DATE + " TEXT, " + TRANS_TIME + " TEXT, " + "FOREIGN KEY ($CAT_ID) REFERENCES $TABLE_CAT($CAT_ID) ON DELETE CASCADE ON UPDATE CASCADE" + ")")
+        db?.execSQL(query4)
     }
 
     override fun onUpgrade(db: SQLiteDatabase, p1: Int, p2: Int) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_CAT)
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_TRANS)
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER)
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PLAN)
         onCreate(db)
     }
 
@@ -394,6 +404,198 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         }
         db.close()
         return pieList
+    }
+
+    fun addPlan(plan: TransactionModel): Long {
+        val db=writableDatabase
+        val contentValues = ContentValues()
+
+        contentValues.put(TRANS_NOTE,plan.transNote)
+        contentValues.put(TRANS_AMOUNT,plan.transAmount)
+        contentValues.put(TRANS_TYPE,1);
+        contentValues.put(TRANS_TIME,plan.transTime)
+        contentValues.put(TRANS_DATE,plan.transDate)
+        contentValues.put(CAT_ID,plan.catId)
+
+        val success = db.insert(TABLE_PLAN,null,contentValues)
+        db.close()
+        return success
+    }
+
+    //Function to view plans of a particular category
+    @SuppressLint("Range")
+    fun viewPlan(catId: Int): ArrayList<TransactionModel> {
+        val arrayListPlanModel: ArrayList<TransactionModel> = ArrayList()
+
+        val selectQuery = "SELECT * FROM $TABLE_PLAN WHERE $CAT_ID = $catId"
+
+        val db=this.writableDatabase
+        var cursor: Cursor? = null
+
+        try {
+            cursor = db.rawQuery(selectQuery,null)
+        }
+        catch (e: SQLiteException) {
+            db.execSQL(selectQuery)
+            return arrayListPlanModel
+        }
+
+        var planID: Int
+        var transAmount: Int
+        var transNote: String
+        var transDate: String
+        var transTime: String
+        var transType: Int
+
+        if (cursor.moveToFirst()) {
+            do {
+                planID=cursor.getInt(cursor.getColumnIndex(PLAN_ID))
+                transAmount=cursor.getInt(cursor.getColumnIndex(TRANS_AMOUNT))
+                transDate=cursor.getString(cursor.getColumnIndex(TRANS_DATE))
+                transTime=cursor.getString(cursor.getColumnIndex(TRANS_TIME))
+                transNote=cursor.getString(cursor.getColumnIndex(TRANS_NOTE))
+                transType=cursor.getInt(cursor.getColumnIndex(TRANS_TYPE))
+
+                val plan = TransactionModel(planID,catId,transType,transNote,transAmount,transDate,transTime)
+                arrayListPlanModel.add(plan)
+
+            } while(cursor.moveToNext())
+        }
+        db.close()
+        return arrayListPlanModel
+    }
+
+    fun addToTransaction(plan: TransactionModel): Long {
+        val db=writableDatabase
+        val contentValues = ContentValues()
+
+        contentValues.put(TRANS_NOTE,plan.getTransNote())
+        contentValues.put(TRANS_AMOUNT,plan.getTransAmount())
+        contentValues.put(TRANS_TYPE,1);
+        contentValues.put(CAT_ID,plan.catId)
+        contentValues.put(TRANS_TIME,plan.getTransTime())
+        contentValues.put(TRANS_DATE,plan.getTransDate())
+
+        val success = db.insert(TABLE_TRANS,null,contentValues)
+        deletePlan(plan)
+        db.close()
+        return success
+    }
+
+    fun deletePlan(plan: TransactionModel): Int {
+        val db=this.writableDatabase
+
+        val success = db.delete(TABLE_PLAN, PLAN_ID + "=" + plan.getTransId(),null)
+        db.close()
+        return success
+    }
+
+    fun deleteAllPlans(catId: Int): Int {
+        val db=this.writableDatabase
+
+        val success = db.delete(TABLE_PLAN, CAT_ID + "=" + catId,null)
+        return success
+    }
+
+    fun viewUserName(): String {
+        val db=this.writableDatabase
+        val cursor: Cursor
+
+        val selectQuery = "SELECT $USER_NAME FROM $TABLE_USER"
+        cursor = db.rawQuery(selectQuery, null)
+
+        var name: String = ""
+        if (cursor.moveToFirst()) {
+            name = cursor.getString(0)
+        }
+
+        db.close()
+        return name
+    }
+
+    fun viewUserEmail(): String {
+        val db = this.writableDatabase
+        val cursor: Cursor
+
+        val selectQuery = "SELECT $USER_EMAIL FROM $TABLE_USER"
+        cursor = db.rawQuery(selectQuery, null)
+
+        var email: String = ""
+        if (cursor.moveToFirst()) {
+            email = cursor.getString(0)
+        }
+
+        db.close()
+        return email
+    }
+
+    fun viewUserIncome(): Int {
+        val db=this.writableDatabase
+        val cursor: Cursor
+
+        val selectQuery = "SELECT $USER_INCOME FROM $TABLE_USER"
+        cursor = db.rawQuery(selectQuery, null)
+
+        var income: Int = 0
+        if (cursor.moveToFirst()) {
+            income = cursor.getInt(0)
+        }
+
+        db.close()
+        return income
+    }
+
+    fun viewUserSaving(): Int {
+        val db=this.writableDatabase
+        val cursor: Cursor
+
+        val selectQuery = "SELECT $USER_SAVING FROM $TABLE_USER"
+        cursor = db.rawQuery(selectQuery, null)
+
+        var save: Int = 0
+        if (cursor.moveToFirst()) {
+            save = cursor.getInt(0)
+        }
+
+        db.close()
+        return save
+    }
+
+    fun viewUserLevel(): Int {
+        val db=this.writableDatabase
+        val cursor: Cursor
+
+        val selectQuery = "SELECT $USER_LEVEL FROM $TABLE_USER"
+        cursor = db.rawQuery(selectQuery, null)
+
+        var save: Int = 0
+        if (cursor.moveToFirst()) {
+            save = cursor.getInt(0)
+        }
+
+        db.close()
+        return save
+    }
+
+    fun updateIncome(income: Int) {
+        val db = this.writableDatabase
+
+        val query = "UPDATE $TABLE_USER SET $USER_INCOME=$income"
+        db.execSQL(query)
+    }
+
+    fun updateSaving(saving: Int) {
+        val db = this.writableDatabase
+
+        val query = "UPDATE $TABLE_USER SET $USER_SAVING=$saving"
+        db.execSQL(query)
+    }
+
+    fun updateLevel() {
+        val db = this.writableDatabase
+
+        val query = "UPDATE $TABLE_USER SET $USER_LEVEL=$USER_LEVEL+1"
+        db.execSQL(query)
     }
 
 }

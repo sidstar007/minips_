@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.app.ActivityCompat.recreate
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bugeting.minips.R
@@ -78,6 +79,7 @@ class CategoryAdapter(private val context: Context,categoryModelArrayList: Array
                 checkAgain.setPositiveButton("Go Ahead") {_,_,->
                     //Deleting category
                     holder.databaseHelper.deleteAllTransactionOfCategory(model)
+                    holder.databaseHelper.deleteAllPlans(model.id)
                     holder.databaseHelper.deleteCategory(model)
                     val intentMainPage = Intent(holder.itemViewContext,MainPage::class.java)
 

@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:background="#1B1B1B">
+        android:background="@drawable/card_border">
 
         <LinearLayout
             android:id="@+id/innerCardLL"
@@ -45,7 +45,7 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:fontFamily="@font/inter_medium"
+                android:fontFamily="@font/bebas_neue"
                 android:text="0"
                 android:textColor="@color/green"
                 android:textSize="20sp" />
