@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:background="@drawable/card_border">
+        android:background="@color/rv_card_color">
 
         <LinearLayout
             android:id="@+id/innerCardLL"
@@ -33,7 +33,7 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
                 android:text="Category Title"
-                android:textColor="@color/white"
+                android:textColor="@color/dark_grey"
                 android:textSize="20sp"
                 />
 
@@ -47,7 +47,7 @@
                 android:layout_marginBottom="10dp"
                 android:fontFamily="@font/bebas_neue"
                 android:text="0"
-                android:textColor="@color/green"
+                android:textColor="@color/dark_green"
                 android:textSize="20sp" />
 
         </LinearLayout>
@@ -59,7 +59,7 @@
             android:layout_marginRight="10dp"
             android:layout_gravity="end|center"
             android:background="@drawable/ic_baseline_more_vert_24"
-            app:backgroundTint="@color/white" />
+            app:backgroundTint="@color/black" />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

@@ -40,7 +40,7 @@ class AccountInfo : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= 21) {
             val window = this.window
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            window.statusBarColor = Color.parseColor("#19173D")
+            window.statusBarColor = Color.parseColor("#0AA1DD")
         }
 
         val userName = findViewById<TextView>(R.id.userNameTV)

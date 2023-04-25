@@ -38,7 +38,7 @@ class TransactionPage : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= 21) {
             val window = this.window
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            window.statusBarColor = parseColor("#19173D")
+            window.statusBarColor = parseColor("#0AA1DD")
         }
 
         //Removing Action Bar
@@ -58,7 +58,19 @@ class TransactionPage : AppCompatActivity() {
         val filterTransaction = findViewById<Button>(R.id.filterTransaction)
         val addPlanPayment = findViewById<Button>(R.id.addPlanPayment)
         val ppRV = findViewById<RecyclerView>(R.id.plannedPaymentsRV)
-        val sepLine = findViewById<View>(R.id.separatorLineTrans)
+        val sepLine1 = findViewById<View>(R.id.separatorLineTrans1)
+        val sepLine2 = findViewById<View>(R.id.separatorLineTrans2)
+        val catBalanceTV = findViewById<TextView>(R.id.transPageBalanceTV)
+        val catCreditTV = findViewById<TextView>(R.id.transPageCreditTV)
+        val catDebitTV = findViewById<TextView>(R.id.transPageDebitTV)
+        val UPIbtn = findViewById<Button>(R.id.UPIPayBtn)
+
+        UPIbtn.setOnClickListener {
+            val intentUpiActivity = Intent(this,UpiPayment::class.java)
+            intentUpiActivity.putExtra("CAT_ID",catId)
+            startActivity(intentUpiActivity)
+        }
+
         val cal = Calendar.getInstance()
 
         //Retrieving category name
@@ -68,9 +80,14 @@ class TransactionPage : AppCompatActivity() {
         transactionModelArrayList = databaseHelper.viewTransaction(catId)
         val planModelArrayList: ArrayList<TransactionModel> = databaseHelper.viewPlan(catId)
 
+        catBalanceTV.text = "\u20B9" + databaseHelper.getCatBalance(catId).toString()
+        catCreditTV.text = "\u20B9" + (databaseHelper.getCatDebit(catId) + databaseHelper.getCatBalance(catId)).toString()
+        catDebitTV.text = "\u20B9" + databaseHelper.getCatDebit(catId).toString()
+
         //Hiding separator line if plan array list is empty
         if (planModelArrayList.size==0) {
-            sepLine.visibility = View.GONE
+            sepLine1.visibility = View.GONE
+            sepLine2.visibility = View.GONE
         }
 
         //Setting up transaction recycler view

@@ -38,4 +38,9 @@
         <item name="boxCornerRadiusTopEnd">10dp</item>
     </style>
 
+    <style name="datePickerStyle" android:parent="DatePicker">
+        <item name="colorControlNormal">@color/black</item>
+        <item name="android:textColorPrimary">@color/black</item>
+    </style>
+
 </resources>

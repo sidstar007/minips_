@@ -14,7 +14,7 @@
     <color name="mainIncomeCardBG">#FF8736</color>
     <color name="green">#00FF00</color>
     <color name="transparent">#00000000</color>
-    <color name="red">#FF0800</color>
+    <color name="red">#8B0000</color>
     <color name="grey">#808080</color>
     <color name="lightRed">#FF7F7F</color>
     <color name="catCard1">#191970</color>
@@ -23,6 +23,13 @@
     <color name="mtrl_textinput_default_box_stroke_color">#5784DC</color>
     <color name="income_btn_color">#23CE34</color>
     <color name="expense_btn_color">#EB2B2B</color>
+    <color name="bg_color">#E8F9FD</color>
+    <color name="head_color">#0AA1DD</color>
+    <color name="card_color">#79DAE8</color>
+    <color name="rv_card_color">#B9D9EB</color>
+    <color name="dark_grey">#121212</color>
+    <color name="dark_green">#138808</color>
+    <color name="text_color_dark">#3B3C36</color>
 
 </resources>
 

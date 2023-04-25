@@ -32,7 +32,7 @@ class CreateBudgetActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_budget)
 
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         //Hiding the action bar
         if (supportActionBar != null) {
@@ -43,7 +43,7 @@ class CreateBudgetActivity : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= 21) {
             val window = this.window
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            window.statusBarColor = Color.parseColor("#5784DC")
+            window.statusBarColor = Color.parseColor("#0AA1DD")
         }
 
         //Getting all the buttons and text input fields
@@ -72,7 +72,7 @@ class CreateBudgetActivity : AppCompatActivity() {
             if (budgetNameET.text.isEmpty() || budgetAmountET.text.isEmpty()) {
                 Toast.makeText(this,"Please Enter All The Details.",Toast.LENGTH_SHORT).show()
             }
-            else if (budgetAmountET.text.toString().toInt()<0) {
+            else if (budgetAmountET.text.toString().length>9 || budgetAmountET.text.toString().toInt()<0) {
                 Toast.makeText(this,"Please Enter a Valid Budget Amount.",Toast.LENGTH_SHORT).show()
             }
             else {

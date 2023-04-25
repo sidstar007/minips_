@@ -17,22 +17,16 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.WindowManager
-import android.widget.LinearLayout
-import android.widget.SearchView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bugeting.minips.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.lang.Math.abs
 import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import java.util.*
-import kotlin.collections.ArrayList
 import kotlin.system.exitProcess
 
 
@@ -54,7 +48,7 @@ class MainPage : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= 21) {
             val window = this.window
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            window.statusBarColor = Color.parseColor("#19173D")
+            window.statusBarColor = Color.parseColor("#0AA1DD")
         }
 
         //Database Helper
@@ -64,7 +58,7 @@ class MainPage : AppCompatActivity() {
         val actionBar = supportActionBar
         actionBar!!.title= databaseHelper.getUserName()
 
-        val colorDrawable = ColorDrawable(Color.parseColor("#19173D"))
+        val colorDrawable = ColorDrawable(Color.parseColor("#0AA1DD"))
         actionBar.setBackgroundDrawable(colorDrawable)
 
         //Getting all the buttons and text views
@@ -114,7 +108,7 @@ class MainPage : AppCompatActivity() {
         //Setting up main page balance card
         if (databaseHelper.getSumBalance()<0) {
             balanceCardNum.text="-" + "\u20B9" + abs(databaseHelper.getSumBalance()).toString()
-            balanceCardNum.setTextColor(Color.parseColor("#FF0800"))
+            balanceCardNum.setTextColor(Color.parseColor("#8B0000"))
         }
         else {
             balanceCardNum.text = "\u20B9" + databaseHelper.getSumBalance().toString()

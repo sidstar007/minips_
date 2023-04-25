@@ -55,7 +55,7 @@ class ExpensePieChart : AppCompatActivity() {
 
         pieChart=findViewById(R.id.pie_chart)
 
-        var query="give some advice in 2 to 3 lines for these expenses in 80 words max "
+        var query="give some advice in 2 to 3 lines for these expenses in 80 words "
 
         val databaseHelper = DatabaseHelper((this))
 
@@ -78,10 +78,10 @@ class ExpensePieChart : AppCompatActivity() {
         //Setting pie chart value attributes
         pieDataSet.valueTextSize=15f
         pieDataSet.valueTypeface = Typeface.create(resources.getFont(R.font.inter_medium),Typeface.BOLD)
-        pieDataSet.valueTextColor=Color.WHITE
+        pieDataSet.valueTextColor=Color.BLACK
 
         //Setting pie chart entry attributes
-        pieChart.setEntryLabelColor(Color.WHITE)
+        pieChart.setEntryLabelColor(Color.BLACK)
         pieChart.setEntryLabelTextSize(15f)
         pieChart.setEntryLabelTypeface(Typeface.create(resources.getFont(R.font.inter_medium),Typeface.BOLD))
 
@@ -95,12 +95,13 @@ class ExpensePieChart : AppCompatActivity() {
         pieChart.description.text = "Expense Analysis"
         pieChart.centerText="EXPENSES"
         pieChart.setCenterTextTypeface(Typeface.create(resources.getFont(R.font.inter_medium),Typeface.BOLD))
-        pieChart.legend.textColor = Color.WHITE
-        pieChart.setCenterTextColor(resources.getColor(R.color.cardBG))
+        pieChart.legend.textColor = Color.TRANSPARENT
+        pieChart.setCenterTextColor(resources.getColor(R.color.head_color))
         pieChart.setCenterTextSize(30f)
         pieChart.animateY(2000)
         pieChart.minAngleForSlices=25f
-        pieChart.setHoleColor(Color.parseColor("#19173D"))
+        pieChart.setHoleColor(resources.getColor(R.color.bg_color))
+        pieChart.legend.isEnabled = false
 
     }
 

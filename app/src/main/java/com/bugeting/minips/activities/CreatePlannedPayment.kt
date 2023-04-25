@@ -24,7 +24,7 @@ class CreatePlannedPayment : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_planned_payment)
 
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         //Hiding the action bar
         if (supportActionBar != null) {
@@ -35,7 +35,7 @@ class CreatePlannedPayment : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= 21) {
             val window = this.window
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            window.statusBarColor = Color.parseColor("#006EEF")
+            window.statusBarColor = Color.parseColor("#0AA1DD")
         }
 
         val catId=intent.getIntExtra(CAT_ID,0)
@@ -64,9 +64,11 @@ class CreatePlannedPayment : AppCompatActivity() {
             } else {
                 hour.toString() + ":" + minute.toString()
             }
-
             if (ppNameET.text.isEmpty() || ppAmountET.text.isEmpty()) {
                 Toast.makeText(this,"Please enter all the details",Toast.LENGTH_SHORT).show()
+            }
+            else if (ppAmountET.text.toString().length>9) {
+                Toast.makeText(this,"Exceeding max value for payment.",Toast.LENGTH_SHORT).show()
             }
             else {
                 val status=databaseHelper.addPlan(TransactionModel(0,catId,1,ppNameET.text.toString(),ppAmountET.text.toString().toInt(),date,time))

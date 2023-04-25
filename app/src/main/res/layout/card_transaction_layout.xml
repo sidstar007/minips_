@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    app:cardBackgroundColor="#1B1B1B"
+    app:cardBackgroundColor="@color/rv_card_color"
     app:cardCornerRadius="10dp"
     app:cardElevation="8dp"
     app:cardMaxElevation="10dp"
@@ -26,7 +26,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"
             android:text="Date"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="15sp"
             android:fontFamily="@font/inter_medium"
             />
@@ -47,7 +47,7 @@
                 android:layout_marginTop="5dp"
                 android:textSize="17sp"
                 android:fontFamily="@font/inter_medium"
-                android:textColor="#89CFF0"
+                android:textColor="#2155CD"
                 />
 
             <TextView
@@ -58,9 +58,8 @@
                 android:layout_marginTop="5dp"
                 android:text="0"
                 android:fontFamily="@font/bebas_neue"
-                android:textColor="@color/green"
+                android:textColor="@color/dark_green"
                 android:textSize="25sp"
-                android:textStyle="bold"
                 />
 
         </LinearLayout>
@@ -73,7 +72,7 @@
             android:layout_marginLeft="10dp"
             android:text="Time"
             android:textSize="15sp"
-            android:textColor="@color/white"/>
+            android:textColor="@color/black"/>
 
     </LinearLayout>
 

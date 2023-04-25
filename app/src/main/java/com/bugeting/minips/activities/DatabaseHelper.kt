@@ -362,10 +362,47 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
     }
 
     //Function to get debited amount of a particular category
-    fun getCatDebit(cat: CategoryModel): Int {
+    fun getCatDebit(catId: Int): Int {
         val db=this.writableDatabase
         var cursor: Cursor? = null
-        val query = "SELECT SUM($TRANS_AMOUNT) FROM $TABLE_TRANS WHERE $CAT_ID=${cat.id}"
+        val query = "SELECT SUM($TRANS_AMOUNT) FROM $TABLE_TRANS WHERE $CAT_ID=${catId} AND $TRANS_TYPE=1"
+        var catDebit = 0
+        try {
+            cursor = db.rawQuery(query, null)
+            if (cursor.moveToFirst()) {
+                catDebit = cursor.getInt(0)
+            }
+        }
+        catch (e: SQLiteException) {
+            return catDebit
+        }
+        db.close()
+        return catDebit
+    }
+
+    fun getAllDebit(): Int {
+        val db=this.writableDatabase
+        var cursor: Cursor? = null
+        val query = "SELECT SUM($TRANS_AMOUNT) FROM $TABLE_TRANS WHERE $TRANS_TYPE=1"
+        var catDebit = 0
+        try {
+            cursor = db.rawQuery(query, null)
+            if (cursor.moveToFirst()) {
+                catDebit = cursor.getInt(0)
+            }
+        }
+        catch (e: SQLiteException) {
+            return catDebit
+        }
+        db.close()
+        return catDebit
+    }
+
+    //Function to get debited amount of a particular category
+    fun getCatCredit(catId: Int): Int {
+        val db=this.writableDatabase
+        var cursor: Cursor? = null
+        val query = "SELECT SUM($TRANS_AMOUNT) FROM $TABLE_TRANS WHERE $CAT_ID=${catId} AND $TRANS_TYPE=0"
         var catDebit = 0
         try {
             cursor = db.rawQuery(query, null)
@@ -596,6 +633,22 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
         val query = "UPDATE $TABLE_USER SET $USER_LEVEL=$USER_LEVEL+1"
         db.execSQL(query)
+    }
+
+    fun viewMaxID(): Int {
+        val db = this.writableDatabase
+        val cursor: Cursor
+
+        val selectQuery = "SELECT MAX($TRANS_ID) FROM $TABLE_TRANS"
+        cursor = db.rawQuery(selectQuery, null)
+
+        var id: Int = 0
+        if (cursor.moveToFirst()) {
+            id = cursor.getInt(0)
+        }
+
+        db.close()
+        return id
     }
 
 }

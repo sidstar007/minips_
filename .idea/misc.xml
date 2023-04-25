@@ -15,6 +15,7 @@
         <entry key="..\:/Users/siddh/AndroidStudioProjects/Minips/app/src/main/res/drawable/circular_progress_bar.xml" value="0.171" />
         <entry key="..\:/Users/siddh/AndroidStudioProjects/Minips/app/src/main/res/drawable/create_btn_bg.xml" value="0.1635" />
         <entry key="..\:/Users/siddh/AndroidStudioProjects/Minips/app/src/main/res/drawable/create_budget_gradient.xml" value="0.1" />
+        <entry key="..\:/Users/siddh/AndroidStudioProjects/Minips/app/src/main/res/drawable/date_picker_style.xml" value="0.1" />
         <entry key="..\:/Users/siddh/AndroidStudioProjects/Minips/app/src/main/res/drawable/expense_btn_bg.xml" value="0.1635" />
         <entry key="..\:/Users/siddh/AndroidStudioProjects/Minips/app/src/main/res/drawable/expense_card_gradient.xml" value="0.171" />
         <entry key="..\:/Users/siddh/AndroidStudioProjects/Minips/app/src/main/res/drawable/gif_border.xml" value="0.1635" />
@@ -31,6 +32,7 @@
         <entry key="..\:/Users/siddh/AndroidStudioProjects/Minips/app/src/main/res/drawable/main_page_head.xml" value="0.1" />
         <entry key="..\:/Users/siddh/AndroidStudioProjects/Minips/app/src/main/res/drawable/openai_analysis_bg.xml" value="0.1" />
         <entry key="..\:/Users/siddh/AndroidStudioProjects/Minips/app/src/main/res/drawable/professional.xml" value="0.1535" />
+        <entry key="..\:/Users/siddh/AndroidStudioProjects/Minips/app/src/main/res/drawable/progress_circular_income.xml" value="0.1635" />
         <entry key="..\:/Users/siddh/AndroidStudioProjects/Minips/app/src/main/res/drawable/student.xml" value="0.1535" />
         <entry key="..\:/Users/siddh/AndroidStudioProjects/Minips/app/src/main/res/drawable/text_input_layout_bg.xml" value="0.1" />
         <entry key="..\:/Users/siddh/AndroidStudioProjects/Minips/app/src/main/res/drawable/text_input_style.xml" value="0.1" />
@@ -52,10 +54,13 @@
         <entry key="..\:/Users/siddh/AndroidStudioProjects/Minips/app/src/main/res/layout/activity_sign_in.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/siddh/AndroidStudioProjects/Minips/app/src/main/res/layout/activity_sign_up.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/siddh/AndroidStudioProjects/Minips/app/src/main/res/layout/activity_splash.xml" value="0.1484375" />
-        <entry key="..\:/Users/siddh/AndroidStudioProjects/Minips/app/src/main/res/layout/activity_transaction_page.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/siddh/AndroidStudioProjects/Minips/app/src/main/res/layout/activity_transaction_page.xml" value="0.264" />
+        <entry key="..\:/Users/siddh/AndroidStudioProjects/Minips/app/src/main/res/layout/activity_upi_payment.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/siddh/AndroidStudioProjects/Minips/app/src/main/res/layout/activity_upi_payment2.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/siddh/AndroidStudioProjects/Minips/app/src/main/res/layout/activity_upipayment.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/siddh/AndroidStudioProjects/Minips/app/src/main/res/layout/card_border.xml" value="0.20380434782608695" />
         <entry key="..\:/Users/siddh/AndroidStudioProjects/Minips/app/src/main/res/layout/card_layout.xml" value="0.2" />
-        <entry key="..\:/Users/siddh/AndroidStudioProjects/Minips/app/src/main/res/layout/card_planned_payments.xml" value="0.72" />
+        <entry key="..\:/Users/siddh/AndroidStudioProjects/Minips/app/src/main/res/layout/card_planned_payments.xml" value="0.35" />
         <entry key="..\:/Users/siddh/AndroidStudioProjects/Minips/app/src/main/res/layout/card_transaction_layout.xml" value="0.152" />
         <entry key="..\:/Users/siddh/AndroidStudioProjects/Minips/app/src/main/res/layout/content_main_page.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/siddh/AndroidStudioProjects/Minips/app/src/main/res/layout/dialog_category_name_change.xml" value="0.205078125" />

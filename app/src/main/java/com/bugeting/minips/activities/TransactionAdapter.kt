@@ -33,12 +33,12 @@ class TransactionAdapter(private val context: Context, transactionModelArrayList
         //'\u20B9' --> Rupee Symbol
         if (model.getTransType()==0) {
             holder.transAmount.text ="+" + "\u20B9" + model.getTransAmount().toString()
-            holder.transAmount.setTextColor(Color.parseColor("#00FF00"))
+            holder.transAmount.setTextColor(Color.parseColor("#138808"))
         }
         //type->1 --> Debit
         else if (model.getTransType()==1) {
             holder.transAmount.text = "-" + "\u20B9" + model.getTransAmount().toString()
-            holder.transAmount.setTextColor(Color.parseColor("#FF0800"))
+            holder.transAmount.setTextColor(Color.parseColor("#8B0000"))
         }
 
         //Deleting transaction

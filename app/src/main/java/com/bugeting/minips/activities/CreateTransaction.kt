@@ -66,13 +66,14 @@ class CreateTransaction : AppCompatActivity() {
         saveTransactionBtn.setOnClickListener {
             var transAmount: Int
             var transRemark: String = ""
+            val transAmountCheck: Long = transAmountET.text.toString().toLong()
             if (transAmountET.text.toString().isEmpty()) {
                 //Checking if user has not filled transaction amount
                 Toast.makeText(this,"Please Enter the Amount.",Toast.LENGTH_SHORT).show()
             }
             else {
                 //Checking if transaction value is 0
-                if (transAmountET.text.toString().toInt()==0) {
+                if (transAmountET.text.toString().length>9 || transAmountET.text.toString().toInt()==0) {
                     Toast.makeText(this,"Please Enter Valid Amount!",Toast.LENGTH_SHORT).show()
                 }
                 else {
