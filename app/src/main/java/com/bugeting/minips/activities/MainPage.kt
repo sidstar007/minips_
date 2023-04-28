@@ -1,13 +1,14 @@
 package com.bugeting.minips.activities
 
-/* Developed by: Siddhant Chalke
-                 21BCS118
-                 IIIT Dharwad
+/* Backend by: Siddhant Chalke
+               21BCS118
+               IIIT Dharwad
 
-   UI/UX by:     Venkatesh Jaiswal
+   Frontend by:  Venkatesh Jaiswal
                  21BCS131
                  IIIT Dharwad
  */
+
 
 import android.content.Intent
 import android.graphics.Color
@@ -16,6 +17,7 @@ import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.view.WindowManager
 import android.widget.*
 import androidx.annotation.RequiresApi
@@ -67,6 +69,21 @@ class MainPage : AppCompatActivity() {
         val expenseCardNum = findViewById<TextView>(R.id.cardMainExpenseNumTV)
         val incomeCardNum = findViewById<TextView>(R.id.cardMainIncomeNumTV)
         val expenseCardLL = findViewById<LinearLayout>(R.id.cardMainExpenseLL)
+        val progressBar = findViewById<ProgressBar>(R.id.progressBar)
+        val amountUsedTV = findViewById<TextView>(R.id.amountUsedTV)
+
+        progressBar.max = databaseHelper.getSumBalance().toInt()
+        progressBar.progress =  databaseHelper.getDebit().toInt()
+
+        if (databaseHelper.getAllCount()==0) {
+            amountUsedTV.text = "Start adding categories by pressing the + button"
+            amountUsedTV.textSize = 25F
+            progressBar.visibility = View.GONE
+        }
+
+        val percentUse = (databaseHelper.getAllDebit().toFloat()/databaseHelper.getSumBalance())*100
+
+        amountUsedTV.text = String.format("You have utilised %.2f percent of your allocated money.",percentUse)
 
         //Intents
         val intentAddBudget = Intent(this, CreateBudgetActivity::class.java)

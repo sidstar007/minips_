@@ -32,6 +32,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
+                android:fontFamily="@font/inter_medium"
                 android:text="Category Title"
                 android:textColor="@color/dark_grey"
                 android:textSize="20sp"

@@ -8,187 +8,213 @@
     android:background="@color/bg_color"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="10dp"
-        android:background="@drawable/account_page_head">
-        <TextView
-            android:id="@+id/profilePageHeadTV"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Your Account"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:fontFamily="@font/inter_medium"
-            />
-
-        <TextView
-            android:id="@+id/userNameTV"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_marginBottom="30dp"
-            android:layout_marginTop="30dp"
-            android:layout_gravity="center"
-            android:text="User Name"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            android:textColor="@color/white"/>
-
-    </LinearLayout>
-
-    <androidx.cardview.widget.CardView
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_marginTop="20dp"
-        android:background="@color/white"
-        app:cardCornerRadius="10dp"
-        app:cardMaxElevation="10dp"
-        app:cardElevation="10dp"
-        android:layout_margin="10dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:background="@drawable/account_page_head">
             <TextView
-                android:id="@+id/userEmailHeadTV"
-                android:layout_width="match_parent"
+                android:id="@+id/profilePageHeadTV"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="10dp"
-                android:text="Email:"
-                android:textSize="15sp"
-                android:textColor="@color/black"/>
+                android:layout_gravity="center"
+                android:text="Your Account"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:fontFamily="@font/inter_medium"
+                />
 
             <TextView
-                android:id="@+id/userEmailTV"
+                android:id="@+id/userNameTV"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="xyz@email.com"
-                android:fontFamily="@font/inter_medium"
-                android:textSize="20sp"
-                android:textColor="@color/black"/>
+                android:layout_marginBottom="30dp"
+                android:layout_marginTop="30dp"
+                android:layout_gravity="center"
+                android:text="User Name"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"/>
 
-            <TextView
-                android:id="@+id/userIncomeHeadTV"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="10dp"
-                android:text="Income:"
-                android:textSize="15sp"
-                android:textColor="@color/black"
-                />
+        </LinearLayout>
 
+        <androidx.cardview.widget.CardView
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginTop="20dp"
+            android:background="@color/white"
+            app:cardCornerRadius="10dp"
+            app:cardMaxElevation="10dp"
+            app:cardElevation="10dp"
+            android:layout_margin="10dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                >
+                android:orientation="vertical">
                 <TextView
-                    android:id="@+id/userIncomeTV"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:fontFamily="@font/inter_medium"
-                    android:text="0"
-                    android:textColor="@color/head_color"
-                    android:textSize="20sp"
-                    />
-
-                <Button
-                    android:id="@+id/editIncome"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginLeft="10dp"
-                    android:background="@drawable/ic_baseline_edit_24"
-                    android:layout_gravity="center"
-                    app:backgroundTint="@color/black"/>
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/userSavingHeadTV"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="10dp"
-                android:text="Savings Target:"
-                android:textSize="15sp"
-                android:textColor="@color/black"
-                />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/userSavingTV"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:fontFamily="@font/inter_medium"
-                    android:text="0"
-                    android:textSize="20sp"
-                    android:textColor="@color/head_color"
-                    />
-
-                <Button
-                    android:id="@+id/editSaving"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/ic_baseline_edit_24"
-                    app:backgroundTint="@color/black"/>
-
-            </LinearLayout>
-
-                <TextView
-                    android:id="@+id/userRankHeadTV"
+                    android:id="@+id/userEmailHeadTV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:layout_marginLeft="10dp"
-                    android:text="Rank:"
+                    android:text="Email:"
+                    android:textSize="15sp"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:id="@+id/userEmailTV"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="xyz@email.com"
+                    android:fontFamily="@font/inter_medium"
+                    android:textSize="20sp"
+                    android:textColor="@color/black"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="#c0c0c0"/>
+
+                <TextView
+                    android:id="@+id/userIncomeHeadTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="Income:"
                     android:textSize="15sp"
                     android:textColor="@color/black"
                     />
 
-            <TextView
-                android:id="@+id/userRankTV"
-                android:clickable="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginBottom="20dp"
-                android:text="Beginner"
-                android:textColor="#FF4F00"
-                android:textSize="30sp"
-                android:textStyle="bold"
-                app:fontFamily="@font/aclonica" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:id="@+id/userIncomeTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:fontFamily="@font/inter_medium"
+                        android:text="0"
+                        android:textColor="@color/head_color"
+                        android:textSize="20sp"
+                        />
 
-        </LinearLayout>
+                    <Button
+                        android:id="@+id/editIncome"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/ic_baseline_edit_24"
+                        android:layout_gravity="center"
+                        app:backgroundTint="@color/black"/>
+                </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="#c0c0c0"/>
 
-    <TextView
-        android:layout_marginTop="60dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:id="@+id/financialAdviceTV"
-        android:layout_width="match_parent"
-        android:layout_height="220dp"
-        android:scrollbars="vertical"
-        android:background="@color/head_color"
-        android:text="Some financial tips..."
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        android:padding="10dp"
-        android:fontFamily="@font/inter_medium"/>
+                <TextView
+                    android:id="@+id/userSavingHeadTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="Savings Target:"
+                    android:textSize="15sp"
+                    android:textColor="@color/black"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/userSavingTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:fontFamily="@font/inter_medium"
+                        android:text="0"
+                        android:textSize="20sp"
+                        android:textColor="@color/head_color"
+                        />
+
+                    <Button
+                        android:id="@+id/editSaving"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/ic_baseline_edit_24"
+                        app:backgroundTint="@color/black"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="#c0c0c0"/>
+
+                    <TextView
+                        android:id="@+id/userRankHeadTV"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginLeft="10dp"
+                        android:text="Rank:"
+                        android:textSize="15sp"
+                        android:textColor="@color/black"
+                        />
+
+                <TextView
+                    android:id="@+id/userRankTV"
+                    android:clickable="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:text="Beginner"
+                    android:textColor="#FF4F00"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    app:fontFamily="@font/aclonica" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:id="@+id/financialAdviceTV"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:scrollbars="vertical"
+            android:background="@color/head_color"
+            android:text="Some financial tips..."
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:padding="10dp"
+            android:fontFamily="@font/inter_medium"/>
 
 
 </LinearLayout>

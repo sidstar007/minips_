@@ -398,6 +398,46 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         return catDebit
     }
 
+    fun getAllCount(): Int {
+        val db=this.writableDatabase
+        var cursor: Cursor? = null
+        val query = "SELECT COUNT($CAT_ID) FROM $TABLE_CAT"
+        var count = 0
+        try {
+            cursor = db.rawQuery(query, null)
+            if (cursor.moveToFirst()) {
+                count = cursor.getInt(0)
+            }
+        }
+        catch (e: SQLiteException) {
+            return count
+        }
+        db.close()
+        return count
+    }
+
+    fun getNames(name: String): Boolean {
+        val db=this.writableDatabase
+        var cursor: Cursor? = null
+        val query = "SELECT $CAT_NAME FROM $TABLE_CAT"
+        var result = false
+        try {
+            cursor = db.rawQuery(query, null)
+            if (cursor.moveToFirst()) {
+                do {
+                    if (name.lowercase() == cursor.getString(0).lowercase()) {
+                        result = true
+                    }
+                }while (cursor.moveToNext())
+            }
+        }
+        catch (e: SQLiteException) {
+            return result
+        }
+        db.close()
+        return result
+    }
+
     //Function to get debited amount of a particular category
     fun getCatCredit(catId: Int): Int {
         val db=this.writableDatabase

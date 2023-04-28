@@ -1,5 +1,6 @@
 package com.bugeting.minips.activities
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Color
 import android.os.Build
@@ -53,6 +54,7 @@ class CreateBudgetActivity : AppCompatActivity() {
         suggestName = findViewById(R.id.suggestNameTV)
         val incomeBtn = findViewById<Button>(R.id.chooseIncome)
         val expenseBtn = findViewById<Button>(R.id.chooseExpense)
+        budgetAmountET.hint = "Amount"
 
         incomeBtn.setOnClickListener {
             budgetAmountET.hint = "Enter Income"
@@ -68,6 +70,7 @@ class CreateBudgetActivity : AppCompatActivity() {
         val intentMainPage = Intent(this, MainPage::class.java)
 
         //Saving a budget category
+        val databaseHelper: DatabaseHelper = DatabaseHelper((this))
         saveBudgetBtn.setOnClickListener {
             if (budgetNameET.text.isEmpty() || budgetAmountET.text.isEmpty()) {
                 Toast.makeText(this,"Please Enter All The Details.",Toast.LENGTH_SHORT).show()
@@ -75,8 +78,13 @@ class CreateBudgetActivity : AppCompatActivity() {
             else if (budgetAmountET.text.toString().length>9 || budgetAmountET.text.toString().toInt()<0) {
                 Toast.makeText(this,"Please Enter a Valid Budget Amount.",Toast.LENGTH_SHORT).show()
             }
+            else if (databaseHelper.getNames(budgetNameET.text.toString())) {
+                val dialog = AlertDialog.Builder(this)
+                dialog.setTitle("Budget name already exists! Please enter a new name.")
+                dialog.setPositiveButton("Ok") {_,_->}
+                dialog.show()
+            }
             else {
-                val databaseHelper: DatabaseHelper = DatabaseHelper((this))
                 val status=databaseHelper.addCategory(CategoryModel(0,budgetNameET.text.toString(),budgetAmountET.text.toString().toInt()))
                 if (status>-1) {
                     Toast.makeText(this, "Category Created!", Toast.LENGTH_SHORT).show()

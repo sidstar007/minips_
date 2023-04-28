@@ -3,7 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.bugeting.minips">
 
+        <queries>
+            <package android:name="com.google.android.apps.nbu.paisa.user" />
+        </queries>
+
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
+
 
     <application
         android:allowBackup="true"
@@ -15,6 +22,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Minips"
         tools:targetApi="31">
+
+        <receiver
+            android:name=".activities.Notification"
+            android:enabled="true"/>
+
         <activity
             android:name=".activities.UpiPayment"
             android:exported="false"

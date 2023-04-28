@@ -6,7 +6,6 @@ import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
@@ -14,12 +13,6 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.bugeting.minips.R
-import dev.shreyaspatil.easyupipayment.EasyUpiPayment
-import dev.shreyaspatil.easyupipayment.listener.PaymentStatusListener
-import dev.shreyaspatil.easyupipayment.model.PaymentApp
-import dev.shreyaspatil.easyupipayment.model.TransactionDetails
-import dev.shreyaspatil.easyupipayment.model.TransactionStatus
-import java.lang.Exception
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
@@ -28,7 +21,7 @@ import java.util.*
 class UpiPayment : AppCompatActivity() {
 
     companion object {
-        const val REQUEST_CODE_UPI_PAYMENT = 1001
+        const val GOOGLE_PAY_REQUEST_CODE = 123
     }
 
     val databaseHelper = DatabaseHelper(this)
@@ -75,10 +68,27 @@ class UpiPayment : AppCompatActivity() {
                 val name: String = payeeName!!.text.toString()
                 val remarks: String = remarks!!.text.toString()
 
-                val uri = Uri.parse("upi://pay?pa=${upi}&pn=${name}&tr=10&am=${amount}.00&cu=INR&tn=${remarks}")
-                val intent = Intent(Intent.ACTION_VIEW, uri)
-                intent.setPackage("com.google.android.apps.nbu.paisa.user")
-                startActivityForResult(intent, REQUEST_CODE_UPI_PAYMENT)
+                val GOOGLE_PAY_PACKAGE_NAME = "com.google.android.apps.nbu.paisa.user"
+
+                val uri = Uri.Builder()
+                    .scheme("upi")
+                    .authority("pay")
+                    .appendQueryParameter("pa", upi)
+                    .appendQueryParameter("pn", name)
+                    .appendQueryParameter("mc", "")
+                    .appendQueryParameter("tr", "your-transaction-ref-id")
+                    .appendQueryParameter("tn", remarks)
+                    .appendQueryParameter("am", amount)
+                    .appendQueryParameter("cu", "INR")
+                    .appendQueryParameter("url", "")
+                    .build()
+
+                //val uri = Uri.parse("upi://pay?pa=paytmqr2810050501011batnfp6464t@paytm&pn=Paytm%20Merchant&paytmqr=2810050501011BATNFP6464T")
+                val intent = Intent(Intent.ACTION_VIEW)
+                intent.data = uri
+
+                intent.setPackage(GOOGLE_PAY_PACKAGE_NAME)
+                startActivityForResult(intent, GOOGLE_PAY_REQUEST_CODE)
             }
         }
     }
@@ -87,7 +97,7 @@ class UpiPayment : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == REQUEST_CODE_UPI_PAYMENT) {
+        if (requestCode == GOOGLE_PAY_REQUEST_CODE) {
             when (resultCode) {
                 RESULT_OK -> {
                     val response = data?.getStringExtra("response")
@@ -128,5 +138,3 @@ class UpiPayment : AppCompatActivity() {
         }
     }
 }
-
-
