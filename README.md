@@ -1,5 +1,7 @@
 # minips_
 
+You can download the app for android [here](https://github.com/sidstar007/minips_/releases/download/v1.0.0/Minips.apk)
+
 Minips is a budgeting and finance management android application that lets users track their income and expenses.
 Users can create multiple custom budget categories and allot a certain amount to them, the amount alloted to each
 category gets updated based on the transaction performed within them (credit or debit). The main page contains an user
