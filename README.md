@@ -1,4 +1,4 @@
-# minips_
+<h1>Minips: Finance Management and Budgeting App</h1>
 
 You can download the apk for android [here](https://github.com/sidstar007/minips_/releases/download/v1.0.0/Minips.apk)
 
